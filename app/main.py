@@ -3,6 +3,7 @@ import os
 import asyncio
 
 from aiogram import Bot, Dispatcher
+from dotenv import load_dotenv
 
 from app.routes.start import start_router
 
@@ -15,7 +16,7 @@ async def main():
 
     try:
         logging.info('Starting bot...')
-        bot = Bot(token=os.environ.get('BOT_TOKEN'))
+        bot = Bot(token=os.getenv('BOT_TOKEN'))
         dispatcher = Dispatcher()
 
         dispatcher.include_routers(
@@ -28,7 +29,8 @@ async def main():
 
 
 if __name__ == '__main__':
+    load_dotenv()
     try:
-        asyncio.run(main)
+        asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
         logging.info('Bot stopped.')
